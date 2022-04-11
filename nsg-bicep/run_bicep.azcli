@@ -5,11 +5,4 @@ az bicep build --file nsg-1.bicep
 location=westeurope
 
 
-az deployment group create -g rg-nsg-bicep-demo-westeu-01 -f ./nsg-1.bicep --parameters location=westeurope nsgName=nsg1-demo @shared-rules.json -c
-
-
 az deployment group create -g rg-nsg-bicep-demo-westeu-01 -f ./nsg-1.bicep --parameters location=westeurope nsgName=nsg1-demo -c
-
-
-# What-if analysis
-az deployment group what-if -g rg-nsg-bicep-demo-westeu-01 -f ./nsg-1.bicep --parameters location=westeurope nsgName=nsg1-demo --result-format FullResourcePayloads
