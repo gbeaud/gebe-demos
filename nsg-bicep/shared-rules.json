@@ -17,7 +17,7 @@
     {
       "name": "Allow_VirtualNetwork_to_Storage",
       "properties": {
-        "description": "Allow outbound connections to the Azure Storage service tag",
+        "description": "Allow outbound connections to the Azure Storage service tag.",
         "protocol": "Tcp",
         "sourceAddressPrefix": "VirtualNetwork",
         "sourcePortRange": "*",
