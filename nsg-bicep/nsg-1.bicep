@@ -4,7 +4,7 @@ param nsgName string
 param location string
 
 // Import shared rules from JSON file
-// var sharedRules = json(loadTextContent('./shared-rules.json')).securityRules
+var sharedRules = json(loadTextContent('./shared-rules.json')).securityRules
 
 // Add custom rules specific to this NSG
 var customRules = [
@@ -30,7 +30,7 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2020-05-01' = {
   location: location
   properties: {
     // Combine shared and custom rules
-    // securityRules: concat(sharedRules, customRules)
-    securityRules: concat(customRules)
+    securityRules: concat(sharedRules, customRules)
+    // securityRules: concat(customRules)
   }
 }
