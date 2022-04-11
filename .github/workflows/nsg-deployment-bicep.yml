@@ -55,5 +55,5 @@ jobs:
         parameters:
           location=westeurope 
           nsgName=nsg5-demo
-          # @./nsg-bicep/shared-rules.json
+          @./nsg-bicep/shared-rules.json
         failOnStdErr: false
