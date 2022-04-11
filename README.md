@@ -4,5 +4,5 @@
 
 By folders:
 - `get-hostnames`: collect all VM names, their NICs and private/public IPs
-- `nsg-bicep`: deploy NSGs using Bicep
+- `nsg-bicep`: deploy NSGs using Bicep and GitHub Actions
 - `nsg-policy`: use an Azure Policy to enforce requirements on NSGs
