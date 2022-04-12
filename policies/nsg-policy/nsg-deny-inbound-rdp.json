@@ -1,88 +1,120 @@
 {
-  "displayName": "NSGs must block inbound RDP",
-  "description": "This Policy requires that all NSGs block inbound RDP",
-  "mode": "All",
-  "parameters": {
-      "exceptionList": {
-          "type": "Array",
-          "metadata": {
-              "displayName": "Exempt NSGs",
-              "description": "NSGs with this name will be exempt from this Policy"
-          }
-      }
-  },
-  "policyRule": {
-    "if": {
-      "field": "type",
-      "equals": "Microsoft.Network/networkSecurityGroups"
+  "properties": {
+    "displayName": "Block Inbound RDP on NSG 01",
+    "policyType": "Custom",
+    "mode": "All",
+    "metadata": {
+      "category": "NSG",
+      "createdBy": "eb4ec784-4723-443f-ada4-8ddeb08293e9",
+      "createdOn": "2022-04-12T09:27:11.5717379Z",
+      "updatedBy": "eb4ec784-4723-443f-ada4-8ddeb08293e9",
+      "updatedOn": "2022-04-12T09:29:49.3387984Z"
     },
-    "then": {
-      "effect": "[parameters('effect')]",
-      "details": {
-        "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-        "roleDefinitionIds": [
-          "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
-        ],
-        "existenceCondition": {
-          "allof": [
-            {
-              "field": "Microsoft.Network/networkSecurityGroups/securityRules/access",
-              "equals": "Deny"
-            },
-            {
-              "field": "Microsoft.Network/networkSecurityGroups/securityRules/direction",
-              "equals": "Inbound"
-            },
-            {
-              "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationPortRange",
-              "equals": "3389"
-            }
-          ]
+    "parameters": {
+      "effect": {
+        "type": "String",
+        "metadata": {
+          "displayName": "Effect",
+          "description": "Enable or disable the execution of the policy"
         },
-        "deployment": {
-          "properties": {
-            "mode": "incremental",
-            "parameters": {
-              "nsgName": {
-                "value": "[field('name')]"
+        "allowedValues": [
+          "DoNotEnforce",
+          "deployIfNotExists"
+        ],
+        "defaultValue": "deployIfNotExists"
+      },
+      "priority": {
+        "type": "Integer",
+        "metadata": {
+          "displayName": "priority",
+          "description": "Priority for the deny RDP security rule (Example 100)."
+        }
+      }
+    },
+    "policyRule": {
+      "if": {
+        "field": "type",
+        "equals": "Microsoft.Network/networkSecurityGroups"
+      },
+      "then": {
+        "effect": "[parameters('effect')]",
+        "details": {
+          "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+          "roleDefinitionIds": [
+            "/providers/Microsoft.Authorization/roleDefinitions/4d97b98b-1d4f-4787-a291-c67834d212e7"
+          ],
+          "existenceCondition": {
+            "allof": [
+              {
+                "field": "Microsoft.Network/networkSecurityGroups/securityRules/access",
+                "equals": "Deny"
               },
-              "priority": {
-                "value": "[parameters('priority')]"
+              {
+                "field": "Microsoft.Network/networkSecurityGroups/securityRules/direction",
+                "equals": "Inbound"
+              },
+              {
+                "field": "Microsoft.Network/networkSecurityGroups/securityRules/destinationPortRange",
+                "equals": "3389"
               }
-            },
-            "template": {
-              "$schema": "http://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
-              "contentVersion": "1.0.0.0",
+            ]
+          },
+          "deployment": {
+            "properties": {
+              "mode": "incremental",
               "parameters": {
                 "nsgName": {
-                  "type": "string"
+                  "value": "[field('name')]"
                 },
                 "priority": {
-                  "type": "int"
+                  "value": "[parameters('priority')]"
                 }
               },
-              "resources": [
-                {
-                  "name": "[concat(parameters('nsgName'),'/Port_3389_Deny')]",
-                  "type": "Microsoft.Network/networkSecurityGroups/securityRules",
-                  "apiVersion": "2019-11-01",
-                  "properties": {
-                    "description": "Deny RDP",
-                    "protocol": "*",
-                    "sourcePortRange": "*",
-                    "destinationPortRange": "3389",
-                    "sourceAddressPrefix": "*",
-                    "destinationAddressPrefix": "*",
-                    "access": "Deny",
-                    "priority": "[parameters('priority')]",
-                    "direction": "Inbound"
+              "template": {
+                "$schema": "http://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+                "contentVersion": "1.0.0.0",
+                "parameters": {
+                  "nsgName": {
+                    "type": "string"
+                  },
+                  "priority": {
+                    "type": "int"
                   }
-                }
-              ]
+                },
+                "resources": [
+                  {
+                    "name": "[concat(parameters('nsgName'),'/Port_3389_Deny')]",
+                    "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+                    "apiVersion": "2019-11-01",
+                    "properties": {
+                      "description": "Deny RDP",
+                      "protocol": "*",
+                      "sourcePortRange": "*",
+                      "destinationPortRange": "3389",
+                      "sourceAddressPrefix": "*",
+                      "destinationAddressPrefix": "*",
+                      "access": "Deny",
+                      "priority": "[parameters('priority')]",
+                      "direction": "Inbound"
+                    }
+                  }
+                ]
+              }
             }
           }
         }
       }
     }
+  },
+  "id": "/subscriptions/ac8ac0e7-49e2-47f4-8059-87377ebce92b/providers/Microsoft.Authorization/policyDefinitions/b8c01362-9e69-44a6-9030-70a44e2290de",
+  "type": "Microsoft.Authorization/policyDefinitions",
+  "name": "b8c01362-9e69-44a6-9030-70a44e2290de",
+  "systemData": {
+    "createdBy": "admin@M365x389859.onmicrosoft.com",
+    "createdByType": "User",
+    "createdAt": "2022-04-12T09:27:11.494763Z",
+    "lastModifiedBy": "admin@M365x389859.onmicrosoft.com",
+    "lastModifiedByType": "User",
+    "lastModifiedAt": "2022-04-12T09:29:49.2731047Z"
   }
 }

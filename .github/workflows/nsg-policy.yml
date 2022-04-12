@@ -1,0 +1,52 @@
+name: NSG Policy deployment
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches:
+    - main
+    paths:
+    - policies/**
+    - .github/workflows/nsg-policy.yml
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# This permissions block is needed when using OpenID authentication
+permissions:
+  id-token: write
+  contents: read
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build-and-deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@main
+      name: Checkout
+
+    # Log into Azure using Open ID
+    - uses: azure/login@v1
+      name: Azure OpenID login
+      with:
+        # Using just the "creds" line works but we can't set the subscription
+        # creds: ${{ secrets.AZURE_CREDENTIALS }}
+        client-id: ${{ secrets.AZURE_CLIENT_ID_SANDBOX_OWNER }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID_SANDBOX }}
+
+    - name: 'Upload Policy'
+      uses: azure-ad-b2c/deploy-trustframework-policy@v3
+      with:
+        folder: "./policies/nsg-policy"
+        files: "nsg-deny-inbound-rdp.json"
+        # tenant: ${{ env.tenant }}
+        # clientId: ${{ env.clientId }}
+        # clientSecret: ${{ secrets.clientSecret }}
