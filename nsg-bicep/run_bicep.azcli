@@ -1,8 +1,1 @@
-# Build JSON template
-az bicep build --file nsg-1.bicep
-
-# change these as needed
-location=westeurope
-
-
 az deployment group create -g rg-nsg-bicep-demo-westeu-01 -f ./nsg-1.bicep --parameters location=westeurope nsgName=nsg1-demo -c

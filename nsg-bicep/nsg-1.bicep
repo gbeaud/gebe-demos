@@ -31,6 +31,5 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2020-05-01' = {
   properties: {
     // Combine shared and custom rules
     securityRules: concat(sharedRules, customRules)
-    // securityRules: concat(customRules)
   }
 }

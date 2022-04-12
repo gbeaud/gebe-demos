@@ -54,5 +54,5 @@ jobs:
         template: ./nsg-bicep/nsg-1.bicep
         parameters:
           location=westeurope 
-          nsgName=nsg6-demo
+          nsgName=nsg7-demo
         failOnStdErr: false
