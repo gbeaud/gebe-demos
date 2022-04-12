@@ -1,4 +1,4 @@
-name: NSG Policy deployment
+name: Azure Policy on NSG
 
 # Controls when the workflow will run
 on:
@@ -23,18 +23,18 @@ permissions:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build-and-deploy:
+  apply-azure-policy:    
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@main
-      name: Checkout
+    - name: Checkout
+      uses: actions/checkout@main
 
     # Log into Azure using Open ID
-    - uses: azure/login@v1
-      name: Azure OpenID login
+    - name: Azure OpenID login
+      uses: azure/login@v1
       with:
         # Using just the "creds" line works but we can't set the subscription
         # creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -42,11 +42,11 @@ jobs:
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID_SANDBOX }}
 
-    - name: 'Upload Policy'
-      uses: azure-ad-b2c/deploy-trustframework-policy@v3
-      with:
-        folder: "./policies/nsg-policy"
-        files: "nsg-deny-inbound-rdp.json"
-        # tenant: ${{ env.tenant }}
-        # clientId: ${{ env.clientId }}
-        # clientSecret: ${{ secrets.clientSecret }}
+    # https://github.com/marketplace/actions/manage-azure-policy
+    - name: Create or Update Azure Policies
+      uses: azure/manage-azure-policy@v0
+      with:      
+        paths:  |                
+          policies/**
+        # assignments:  |
+        #   assign.*_testRG_*.json
