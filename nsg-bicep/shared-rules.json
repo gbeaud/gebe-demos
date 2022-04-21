@@ -1,7 +1,7 @@
 {
   "securityRules": [
     {
-      "name": "Allow_RDP_from_company_IP_address",
+      "name": "Allow_RDP_from_company_IP_addresses",
       "properties": {
         "description": "Allow inbound RDP from the company's IP address range.",
         "protocol": "Tcp",
