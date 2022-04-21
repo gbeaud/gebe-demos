@@ -1,6 +1,6 @@
 {
   "properties": {
-    "displayName": "Block Inbound RDP on NSG 01",
+    "displayName": "Block Inbound RDP on NSG test-01",
     "policyType": "Custom",
     "mode": "All",
     "metadata": {

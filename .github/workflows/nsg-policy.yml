@@ -49,4 +49,4 @@ jobs:
         paths:  |                
           policies/**
         # assignments:  |
-        #   assign.*_testRG_*.json
+        #   assign.*_testRG_*.json 
