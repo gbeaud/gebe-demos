@@ -1,9 +1,9 @@
 # Azure demos
 
-**This repository is shared on a best effort basis for information purpose only with no liability, assurance or guarantees from Microsoft. Code should be first tested in a test environment before being deployed in any production environment.**
+**This repository is shared on a best effort basis for informational purpose only with no liability, assurance or guarantees from Microsoft. Code should be first tested in a test environment before being deployed in any production environment.**
 
 By folders:
 - `fslogix-setup`: automatic FSLogix Windows registry configuration for AVD
-- `get-hostnames`: collect all VM names, their NICs and private/public IPs
+- `get-hostnames`: collect all VM names across all subscriptions, their NICs and private/public IPs
 - `nsg-bicep`: deploy NSGs using Bicep and GitHub Actions
-- `nsg-policy`: use an Azure Policy to enforce requirements on NSGs
+- `nsg-policies`: use an Azure Policy to enforce requirements on NSGs
