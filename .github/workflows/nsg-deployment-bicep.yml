@@ -42,7 +42,7 @@ jobs:
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID_SANDBOX }}
 
-    # Deploy Bicep file 
+    # Deploy Bicep file   
     # Documentation on arm-deploy module: https://github.com/Azure/arm-deploy
     - uses: azure/arm-deploy@v1
       name: Deploy NSG with Bicep
