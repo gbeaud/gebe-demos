@@ -4,6 +4,6 @@
 
 By folders:
 - `fslogix-setup`: automatic FSLogix Windows registry configuration for AVD
-- `get-hostnames`: collect all VM names, their NICs and private/public IPs
+- `get-hostnames`: collect all VM names across all subscriptions, their NICs and private/public IPs
 - `nsg-bicep`: deploy NSGs using Bicep and GitHub Actions
-- `nsg-policy`: use an Azure Policy to enforce requirements on NSGs
+- `nsg-policies`: use an Azure Policy to enforce requirements on NSGs
