@@ -1,0 +1,18 @@
+{
+  "securityRules": [
+    {
+      "name": "Allow_Internet_HTTP_Inbound",
+      "properties": {
+        "description": "Allow inbound internet connectivity for HTTP only.",
+        "protocol": "Tcp",
+        "sourceAddressPrefix": "Internet",
+        "sourcePortRange": "80",
+        "destinationAddressPrefix": "VirtualNetwork",
+        "destinationPortRange": "3389",
+        "access": "Allow",
+        "priority": 500,
+        "direction": "Inbound"
+      }
+    }
+  ]
+}

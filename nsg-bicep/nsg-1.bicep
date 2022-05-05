@@ -3,11 +3,14 @@ targetScope = 'resourceGroup'
 param nsgName string
 param location string
 
-// Import shared rules from JSON file
-var sharedRules = json(loadTextContent('./shared-rules.json')).securityRules
+// Import baseline rules from JSON file
+var baselineRules = json(loadTextContent('./baseline-rules.json')).securityRules
 
-// Add custom rules specific to this NSG
-var customRules = [
+//Import custom rules specific to this NSG from JSON file
+var customRules = json(loadTextContent('./custom-rules.json')).securityRules
+
+//Optionally, add local rules directly in the Bicep file
+var localRules = [
   {
     name: 'Allow_Internet_HTTPS_Inbound'
     properties: {
@@ -30,6 +33,6 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2020-05-01' = {
   location: location
   properties: {
     // Combine shared and custom rules
-    securityRules: concat(sharedRules, customRules)
+    securityRules: concat(baselineRules, customRules, localRules)
   }
 }
