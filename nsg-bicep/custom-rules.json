@@ -6,9 +6,9 @@
         "description": "Allow inbound internet connectivity for HTTP only.",
         "protocol": "Tcp",
         "sourceAddressPrefix": "Internet",
-        "sourcePortRange": "80",
+        "sourcePortRange": "*",
         "destinationAddressPrefix": "VirtualNetwork",
-        "destinationPortRange": "3389",
+        "destinationPortRange": "80",
         "access": "Allow",
         "priority": 500,
         "direction": "Inbound"
