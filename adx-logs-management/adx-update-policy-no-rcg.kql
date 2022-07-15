@@ -1,3 +1,5 @@
+//This version does not handle rules collection groups in the "msg" item of the firewall logs
+
 // Create table to receive raw logs from Event Hub
 .create table ['rawFirewallLogs']  (['records']:dynamic, ['EventProcessedUtcTime']:datetime, ['PartitionId']:int, ['EventEnqueuedUtcTime']:datetime)
 
