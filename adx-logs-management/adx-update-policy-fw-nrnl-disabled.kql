@@ -1,4 +1,4 @@
-//This version does not handle rules collection groups in the "msg" item of the firewall logs
+//Use this version if you have Network rule name logging (preview as July 2022) disabled on your Azure Firewall (https://docs.microsoft.com/en-us/azure/firewall/firewall-preview#network-rule-name-logging-preview). Enabling this feature adds new items to the "msg" field of the logs, including policy name, rule collection group, rule collection and rule name.
 
 // Create table to receive raw logs from Event Hub
 .create table ['rawFirewallLogs']  (['records']:dynamic, ['EventProcessedUtcTime']:datetime, ['PartitionId']:int, ['EventEnqueuedUtcTime']:datetime)
