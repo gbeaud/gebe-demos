@@ -8,4 +8,4 @@ By folders:
 - `get-hostnames`: collect all VM names across all subscriptions, their NICs and private/public IPs
 - `nsg-bicep`: deploy NSGs using Bicep and GitHub Actions
 - `nsg-policies`: use an Azure Policy to enforce requirements on NSGs
-- `resources-backup`: Powershell script to back up Azure Firewall, App GW or ALB configurations to blob
+- `resources-backup`: Powershell scripts to back up Azure Firewall, App GW, ALB or any other Azure resource configurations to blob or template specs
