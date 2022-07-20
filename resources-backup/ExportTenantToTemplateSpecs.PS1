@@ -1,6 +1,7 @@
 <#
     .DESCRIPTION
         Export all resource groups from all subscriptions as template specs stored in the related resource group.
+        Usual limitations of ARM apply (e.g. it will not export Log Analytics workspaces due to OperationalInsights objects not being exportable, etc...)
     .NOTES
         AUTHOR: Guillaume Beaud (Microsoft Cloud Solution Architect)
         LASTEDIT: July 20th, 2022
