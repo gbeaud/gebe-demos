@@ -1,3 +1,12 @@
+<#
+    .DESCRIPTION
+        Backs up both the Azure Firewall configurations and its policy as an ARM JSON template in a storage account. To be run manually from a shell.
+
+    .NOTES
+        AUTHOR: Guillaume Beaud (CSA)
+        LASTEDIT: July 4th, 2022
+#>
+
 $ResourceGroupName = "rg-hub-connectivity-prod-westeu"
 $AzureFirewallName = "fw-prod-westeu"
 $AzureFirewallPolicy = "fp-firewall-policy-hub-prod-westeu-01"

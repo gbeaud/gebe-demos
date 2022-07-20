@@ -1,6 +1,6 @@
 <#
     .DESCRIPTION
-        Backs up both the Azure Firewall configurations and its policy as an ARM JSON template in a storage account
+        Backs up both the Azure Firewall configurations and its policy as an ARM JSON template in a storage account. To be run in an automation account.
 
     .NOTES
         AUTHOR: Guillaume Beaud (CSA)
