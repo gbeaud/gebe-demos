@@ -2,76 +2,76 @@
     {
       "records": [
         {
-                  "category": "AzureFirewallNetworkRule-RuleNameLoggingEnabled-Test",
-                  "time": "2022-07-14T14:06:25.3840780Z",
-                  "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG_NETWORK_PROD/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/SHHNFW0001",
-                  "operationName": "AzureFirewallNetworkRuleLog",
-                  "properties": {
-                      "msg": "UDP request from 10.37.40.73:56067 to 10.38.14.32:514. Action: Allow. Policy: FWP-eu-prod-01_premium. Rule Collection Group: RCG01. Rule Collection: FPRC-SOC. Rule: ITSM1601000-ITSM1625926-Tufin15601-15370"
-                  }
-              },
-        {
-          "category": "AzureFirewallNetworkRule-RuleNameLoggingDisabled-Test",
-          "time": "2022-07-12T16:22:36.0622100Z",
-          "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG_NETWORK_PROD/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/SHHNFW0001",
-          "operationName": "AzureFirewallNetworkRuleLog",
-          "properties": {
-            "msg": "UDP request from 10.11.0.4:62637 to 216.58.214.14:443. Action: Allow. "
-          }
+            "category": "AzureFirewallNetworkRule-RuleNameLoggingEnabled-Test",
+            "time": "2022-07-14T14:06:25.3840780Z",
+            "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG_NETWORK_PROD/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/SHHNFW0001",
+            "operationName": "AzureFirewallNetworkRuleLog",
+            "properties": {
+                "msg": "UDP request from 10.37.40.73:56067 to 10.38.14.32:514. Action: Allow. Policy: FWP-eu-prod-01_premium. Rule Collection Group: RCG01. Rule Collection: FPRC-SOC. Rule: ITSM1601000-ITSM1625926-Tufin15601-15370"
+            }
         },
         {
-              "category": "AzureFirewallNetworkRule-DNAT-Test",
-              "time": "2022-08-21T06:38:02.2042120Z",
-              "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG_NETWORK_PROD/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/SHHNFW0001",
-              "operationName": "AzureFirewallNatRuleLog",
-              "properties": {
-                  "msg": "TCP request from 104.41.216.239:35778 to 20.105.98.139:443 was DNAT'ed to 10.38.18.151:443. Policy: FWP-eu-prod-01_premium. Rule Collection Group: DefaultDnatRuleCollectionGroup. Rule Collection: FPRC-Bitbucket. Rule: FPR-Bitbucket-Tufin14108-445"
-              }
+            "category": "AzureFirewallNetworkRule-RuleNameLoggingDisabled-Test",
+            "time": "2022-07-12T16:22:36.0622100Z",
+            "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG_NETWORK_PROD/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/SHHNFW0001",
+            "operationName": "AzureFirewallNetworkRuleLog",
+            "properties": {
+                "msg": "UDP request from 10.11.0.4:62637 to 216.58.214.14:443. Action: Allow. "
+            }
+        },
+        {
+            "category": "AzureFirewallNetworkRule-DNAT-Test",
+            "time": "2022-08-21T06:38:02.2042120Z",
+            "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG_NETWORK_PROD/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/SHHNFW0001",
+            "operationName": "AzureFirewallNatRuleLog",
+            "properties": {
+                "msg": "TCP request from 104.41.216.239:35778 to 20.105.98.139:443 was DNAT'ed to 10.38.18.151:443. Policy: FWP-eu-prod-01_premium. Rule Collection Group: DefaultDnatRuleCollectionGroup. Rule Collection: FPRC-Bitbucket. Rule: FPR-Bitbucket-Tufin14108-445"
+            }
           },
         {
-          "category": "AzureFirewallNetworkRule-ICMP-Test",
-          "time": "2022-08-21T06:38:02.2825790Z",
-          "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG_NETWORK_PROD/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/SHHNFW0001",
-          "operationName": "AzureFirewallNetworkRuleLog",
-          "properties": {
-            "msg": "ICMP Type=8 request from 10.38.14.217 to 10.131.118.2. Action: Allow. Policy: FWP-eu-prod-01_premium. Rule Collection Group: DNRCG. Rule Collection: FPRC-Remediation_EMERGENCY. Rule: FPR_Allow_ICMP"
-          }
+            "category": "AzureFirewallNetworkRule-ICMP-Test",
+            "time": "2022-08-21T06:38:02.2825790Z",
+            "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG_NETWORK_PROD/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/SHHNFW0001",
+            "operationName": "AzureFirewallNetworkRuleLog",
+            "properties": {
+                "msg": "ICMP Type=8 request from 10.38.14.217 to 10.131.118.2. Action: Allow. Policy: FWP-eu-prod-01_premium. Rule Collection Group: DNRCG. Rule Collection: FPRC-Remediation_EMERGENCY. Rule: FPR_Allow_ICMP"
+            }
         },
         {
-          "category": "AzureFirewallApplicationRule-Deny-NoMatch-Test",
-          "time": "2022-08-18T19:05:06.0206920Z",
-          "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG_NETWORK_PROD/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/SHHNFW0001",
-          "operationName": "AzureFirewallApplicationRuleLog",
-          "properties": {
-            "msg": "HTTPS request from 10.38.32.8:32282 to schwebmig-prod.global.com:443. Action: Deny. No rule matched. Proceeding with default action"
-          }
+            "category": "AzureFirewallApplicationRule-Deny-NoMatch-Test",
+            "time": "2022-08-18T19:05:06.0206920Z",
+            "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG_NETWORK_PROD/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/SHHNFW0001",
+            "operationName": "AzureFirewallApplicationRuleLog",
+            "properties": {
+                "msg": "HTTPS request from 10.38.32.8:32282 to schwebmig-prod.global.com:443. Action: Deny. No rule matched. Proceeding with default action"
+            }
         },
         {
-          "category": "AzureFirewallApplicationRule-Deny-Explicit-Test",
-          "time": "2022-08-18T19:05:16.6127010Z",
-          "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG_NETWORK_PROD/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/SHHNFW0001",
-          "operationName": "AzureFirewallApplicationRuleLog",
-          "properties": {
-            "msg": "HTTP  request from 10.37.48.39:49747. Action: Deny. Reason: Host header port 443 mismatch with network port 80"
-          }
+            "category": "AzureFirewallApplicationRule-Deny-Explicit-Test",
+            "time": "2022-08-18T19:05:16.6127010Z",
+            "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG_NETWORK_PROD/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/SHHNFW0001",
+            "operationName": "AzureFirewallApplicationRuleLog",
+            "properties": {
+                "msg": "HTTP  request from 10.37.48.39:49747. Action: Deny. Reason: Host header port 443 mismatch with network port 80"
+            }
         },
         {
-              "category": "AzureFirewallApplicationRule-SQL-FQDN-Allow-Test",
-              "time": "2022-08-18T19:05:30.9562310Z",
-              "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG_NETWORK_PROD/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/SHHNFW0001",
-              "operationName": "AzureFirewallApplicationRuleLog",
-              "properties": {
-                  "msg": "MSSQL request from 10.12.47.190:54455 to sqlmi-shh-prod-shared-01.36c4db4dc13b.database.windows.net:1433. Action: Allow. Policy: FWP-eu-prod-01_premium. Rule Collection Group: DefaultApplicationRuleCollectionGroup. Rule Collection: FPRC-SPT. Rule: FPRC-PostMigrationLBLC_SPT"
-              }
-          },
+            "category": "AzureFirewallApplicationRule-SQL-FQDN-Allow-Test",
+            "time": "2022-08-18T19:05:30.9562310Z",
+            "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG_NETWORK_PROD/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/SHHNFW0001",
+            "operationName": "AzureFirewallApplicationRuleLog",
+            "properties": {
+                "msg": "MSSQL request from 10.12.47.190:54455 to sqlmi-shh-prod-shared-01.36c4db4dc13b.database.windows.net:1433. Action: Allow. Policy: FWP-eu-prod-01_premium. Rule Collection Group: DefaultApplicationRuleCollectionGroup. Rule Collection: FPRC-SPT. Rule: FPRC-PostMigrationLBLC_SPT"
+            }
+        },
         {
-          "category": "AzureFirewallApplicationRule-SQL-FQDN-Deny-Test",
-          "time": "2022-08-18T19:05:59.8417100Z",
-          "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG_NETWORK_PROD/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/SHHNFW0001",
-          "operationName": "AzureFirewallApplicationRuleLog",
-          "properties": {
-            "msg": "MSSQL request from 10.37.9.86:52061 to shhwsr2143:1433. Action: Deny. No rule matched. Proceeding with default action"
-          }
+            "category": "AzureFirewallApplicationRule-SQL-FQDN-Deny-Test",
+            "time": "2022-08-18T19:05:59.8417100Z",
+            "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG_NETWORK_PROD/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/SHHNFW0001",
+            "operationName": "AzureFirewallApplicationRuleLog",
+            "properties": {
+                "msg": "MSSQL request from 10.37.9.86:52061 to shhwsr2143:1433. Action: Deny. No rule matched. Proceeding with default action"
+            }
         }
       ],
       "EventProcessedUtcTime": "2022-07-12T16:23:23.1086035Z",
