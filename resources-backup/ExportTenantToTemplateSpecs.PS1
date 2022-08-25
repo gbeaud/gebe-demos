@@ -66,4 +66,16 @@ function Export-AllSubscriptions() {
     }
 }
 
+# Connect Automation account using a Managed Service Identity
+try
+{
+    "Logging in to Azure..."
+    Connect-AzAccount -Identity
+}
+catch {
+    Write-Error -Message $_.Exception
+    throw $_.Exception
+}
+
+# Run export
 Export-AllSubscriptions
