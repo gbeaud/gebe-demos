@@ -74,14 +74,14 @@
           }
         },
         {
-          "category": "AzureFirewallDnsProxy",
+          "category": "AzureFirewallDnsProxy-Test",
           "time": "2022-08-25T09:39:09.0929040Z",
           "resourceId": "/SUBSCRIPTIONS/XXX/RG_NETWORK_PROD/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/SHHNFW0001",
           "operationName": "AzureFirewallDnsProxyLog",
           "properties": {
             "msg": "DNS Request: 10.38.33.40:9536 - 8373 AAAA IN shhscpmdmspc-prod.global.schindler.com. udp 56 false 512 NOERROR qr,aa,rd,ra 139 0.000148902s"
           }
-        },
+        }
       ],
       "EventProcessedUtcTime": "2022-07-12T16:23:23.1086035Z",
       "PartitionId": 3,
