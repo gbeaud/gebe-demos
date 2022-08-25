@@ -26,14 +26,14 @@ rawFirewallLogs
 | parse records.properties.msg with Protocol_5 ' request from ' SourceHost_5 ':' SourcePort_5 ' to ' DestinationHost_5 ':' DestinationPort_5 '. Action: ' Action_5 '. No rule matched. Proceeding with default action'
 //Explicit deny logs
 | parse records.properties.msg with Protocol_6 '  request from ' SourceHost_6 ':' SourcePort_6 '. Action: ' Action_6 '. Reason: ' DenyReason
-//SQL allow logs
-//| parse records.properties.msg with Protocol_7 ' request from ' SourceHost_7 ':' SourcePort_7 ' to ' DestinationHost_7 ':' DestinationPort_7 '. Action: ' Action_7 '. Policy: ' Policy_7 '. Rule Collection Group: ' RCG_7 '. Rule Collection: ' RuleCollection_7 '. Rule: ' Rule_7
+//DNS proxy
+| parse records.properties.msg with 'DNS Request: ' SourceHost_7 ':' SourcePort_7 ' - ' Unused_var ' ' DNSRequestType_7 ' IN ' HostName_7 '. ' msg_7
 //SQL deny logs
 //| parse records.properties.msg with Protocol_8 ' request from ' SourceHost_8 ':' SourcePort_8 ' to ' DestinationHost_8 ':' DestinationPort_8 '. Action: ' Action_8 '. No rule matched. Proceeding with default action'
 | extend
     Protocol = strcat(Protocol_1, Protocol_2, Protocol_3, Protocol_4, Protocol_5, Protocol_6),
-    SourceHost = strcat(SourceHost_1, SourceHost_2, SourceHost_3, SourceHost_4, SourceHost_5, SourceHost_6),
-    SourcePort = strcat(SourcePort_1, SourcePort_2, SourcePort_3, SourcePort_5, SourcePort_6),
+    SourceHost = strcat(SourceHost_1, SourceHost_2, SourceHost_3, SourceHost_4, SourceHost_5, SourceHost_6, SourceHost_7),
+    SourcePort = strcat(SourcePort_1, SourcePort_2, SourcePort_3, SourcePort_5, SourcePort_6, SourcePort_7),
     DestinationHost = strcat(DestinationHost_1, DestinationHost_2, DestinationHost_3, DestinationHost_4, DestinationHost_5),
     DestinationPort = strcat(DestinationPort_1, DestinationPort_2, DestinationPort_3, DestinationPort_5),
     Action = strcat(Action_2, Action_3, Action_4, Action_5, Action_6),
@@ -58,10 +58,13 @@ rawFirewallLogs
     tostring(RCG),
     tostring(RuleCollection),
     tostring(Rule),
-    tostring(DenyReason)
+    tostring(DenyReason),
+    tostring(DNSRequestType_7),
+    tostring(HostName_7),
+    tostring(msg_7)
 }
 
-// Create target table command
+// Create target table
 .create table networkFirewallLogs (
     Timestamp:datetime,
     Category:string,
@@ -78,7 +81,33 @@ rawFirewallLogs
     RuleCollectionGroup:string,
     RuleCollection:string,
     Rule:string,
-    DenyReason:string
+    DenyReason:string,
+    DNSRequestType:string,
+    HostName:string,
+    Message:string
+    )
+
+// Update target table
+.alter table networkFirewallLogs (
+    Timestamp:datetime,
+    Category:string,
+    OperationName:string,
+    ResourceID:string,
+    Protocol:string,
+    SourceIP:string,
+    SourcePort:int ,
+    DestinationIP:string,
+    DestinationPort:int,
+    DNATDestination:string,
+    Action:string,
+    Policy:string,
+    RuleCollectionGroup:string,
+    RuleCollection:string,
+    Rule:string,
+    DenyReason:string,
+    DNSRequestType:string,
+    HostName:string,
+    Message:string
     )
 
 // Adding update policy on the target table
