@@ -1,11 +1,18 @@
 <#
     .DESCRIPTION
-        Export all resource groups from all subscriptions as template specs stored in the related resource group.
+        Export all resource groups in scope as template specs stored in the related resource group.
         Usual limitations of ARM apply (e.g. it will not export Log Analytics workspaces due to OperationalInsights objects not being exportable, etc...)
     .NOTES
         AUTHOR: Guillaume Beaud (Microsoft Cloud Solution Architect)
-        LASTEDIT: July 20th, 2022
+        LASTEDIT: August 25th, 2022
 #>
+
+# List of subscriptions and resource groups to which the script should be applied to
+# Pattern is: @("<subscriptionID>","<resourceGroupName1>","<resourceGroupName2>, ...")
+$scopes = @(
+    @("<subscriptionID1>","<resourceGroupName1>","<resourceGroupName2>"),
+    @("<subscriptionID2>","<resourceGroupName3>","<resourceGroupName4>","<resourceGroupName5>")
+)
 
 function Export-ResourceGroup(
     [string]$subscriptionID, 
@@ -56,15 +63,16 @@ function Export-AllSubscriptions() {
     .SYNOPSIS
         Iterate over all available subscriptions and all resource groups to call Export-ResourceGroup
     #>
-    foreach ($subscription in Get-AzSubscription) {
-        Select-AzSubscription -SubscriptionId $subscription
-        foreach ($resourceGroup in Get-AzResourceGroup) {
-            Export-ResourceGroup `
-                -resourceGroupName $resourceGroup.ResourceGroupName `
-                -SubscriptionId $subscription
+    foreach ($scope in $scopes) {
+        Select-AzSubscription -SubscriptionId $scope[0]
+        for($i=1; $i -lt $scope.Length; $i++) {
+        Export-ResourceGroup `
+                -resourceGroupName $scope[$i]  `
+                -SubscriptionId $scope[0]
         }
     }
 }
+
 
 # If using an Automation account, connect using a Managed Service Identity. Otherwise remove this block.
 try
