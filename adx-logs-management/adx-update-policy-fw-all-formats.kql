@@ -1,3 +1,10 @@
+//These KQL queries perform the following actions:
+// 1) Create a table for raw Azure firewall logs (rawFirewallLogs)
+// 2) Create an ingestion mapping
+// 3) Define a function, ExtractMyLogs(), which parses Azure firewall logs into columns
+// 4) Create a target table (networkFirewallLogs) with user-friendly columns for parsed logs
+// 5) Create an update policy which will apply ExtractMyLogs() to every new batch of logs landing in the raw table, and export the results in the target table (networkFirewallLogs)
+
 //This version works whether you have enabled or not Network rule name logging (preview as of August 2022) on your Azure Firewall (https://docs.microsoft.com/en-us/azure/firewall/firewall-preview#network-rule-name-logging-preview). Enabling this feature adds new items to the "msg" field of the logs, including policy name, rule collection group, rule collection and rule name.
 
 // Create table to receive raw logs from Event Hub
