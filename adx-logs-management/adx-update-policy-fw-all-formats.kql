@@ -12,8 +12,8 @@
      ExtractMyLogs()
     {
 rawFirewallLogs
+// Parse the "msg" nested JSON item containing protocol, source/destination IP, port, action etc...
 | mv-expand records
-// Parse the "msg" nested JSON item containing protocol, source/destination IP and port and action
 // Match DNAT record
 | parse records.properties.msg with Protocol_1 ' request from ' SourceHost_1 ':' SourcePort_1 ' to ' DestinationHost_1 ':' DestinationPort_1 ' was DNAT\'ed to ' DNATDestination '. Policy: ' Policy_1 '. Rule Collection Group: ' RCG_1 '. Rule Collection: ' RuleCollection_1 '. Rule: ' Rule_1
 // Match logs if Network rule name logging was enabled on Firewall
@@ -26,10 +26,8 @@ rawFirewallLogs
 | parse records.properties.msg with Protocol_5 ' request from ' SourceHost_5 ':' SourcePort_5 ' to ' DestinationHost_5 ':' DestinationPort_5 '. Action: ' Action_5 '. No rule matched. Proceeding with default action'
 //Explicit deny logs
 | parse records.properties.msg with Protocol_6 '  request from ' SourceHost_6 ':' SourcePort_6 '. Action: ' Action_6 '. Reason: ' DenyReason
-//DNS proxy
+//DNS proxy logs
 | parse records.properties.msg with 'DNS Request: ' SourceHost_7 ':' SourcePort_7 ' - ' Unused_var ' ' DNSRequestType_7 ' IN ' HostName_7 '. ' msg_7
-//SQL deny logs
-//| parse records.properties.msg with Protocol_8 ' request from ' SourceHost_8 ':' SourcePort_8 ' to ' DestinationHost_8 ':' DestinationPort_8 '. Action: ' Action_8 '. No rule matched. Proceeding with default action'
 | extend
     Protocol = strcat(Protocol_1, Protocol_2, Protocol_3, Protocol_4, Protocol_5, Protocol_6),
     SourceHost = strcat(SourceHost_1, SourceHost_2, SourceHost_3, SourceHost_4, SourceHost_5, SourceHost_6, SourceHost_7),
@@ -66,29 +64,6 @@ rawFirewallLogs
 
 // Create target table
 .create table networkFirewallLogs (
-    Timestamp:datetime,
-    Category:string,
-    OperationName:string,
-    ResourceID:string,
-    Protocol:string,
-    SourceIP:string,
-    SourcePort:int ,
-    DestinationIP:string,
-    DestinationPort:int,
-    DNATDestination:string,
-    Action:string,
-    Policy:string,
-    RuleCollectionGroup:string,
-    RuleCollection:string,
-    Rule:string,
-    DenyReason:string,
-    DNSRequestType:string,
-    HostName:string,
-    Message:string
-    )
-
-// Update target table
-.alter table networkFirewallLogs (
     Timestamp:datetime,
     Category:string,
     OperationName:string,
