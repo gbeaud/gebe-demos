@@ -9,6 +9,7 @@
 
 # List of subscriptions and resource groups to which the script should be applied to
 # Pattern is: @("<subscriptionID>","<resourceGroupName1>","<resourceGroupName2>, ...")
+# Make sure to use at least 2 different subscriptions when testing / using
 $scopes = @(
     @("<subscriptionID1>","<resourceGroupName1>","<resourceGroupName2>"),
     @("<subscriptionID2>","<resourceGroupName3>","<resourceGroupName4>","<resourceGroupName5>")
