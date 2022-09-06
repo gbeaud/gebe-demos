@@ -1,0 +1,90 @@
+[
+  {
+    "records": [
+      {
+        "category": "AzureFirewallNetworkRule-RuleNameLoggingEnabled-Test",
+        "time": "2022-07-14T14:06:25.3840780Z",
+        "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
+        "operationName": "AzureFirewallNetworkRuleLog",
+        "properties": {
+          "msg": "UDP request from 10.37.40.73:56067 to 10.38.14.32:514. Action: Allow. Policy: fwp-premium-test-westeu-01. Rule Collection Group: rcg-01. Rule Collection: rc-01. Rule: rule-01"
+        }
+      },
+      {
+        "category": "AzureFirewallNetworkRule-RuleNameLoggingDisabled-Test",
+        "time": "2022-07-12T16:22:36.0622100Z",
+        "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
+        "operationName": "AzureFirewallNetworkRuleLog",
+        "properties": {
+          "msg": "UDP request from 10.32.0.4:62637 to 10.58.214.14:443. Action: Allow. "
+        }
+      },
+      {
+        "category": "AzureFirewallNetworkRule-DNAT-Test",
+        "time": "2022-08-21T06:38:02.2042120Z",
+        "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
+        "operationName": "AzureFirewallNatRuleLog",
+        "properties": {
+          "msg": "TCP request from 10.41.526.239:35778 to 10.105.198.139:443 was DNAT'ed to 10.28.168.151:443. Policy: fwp-premium-test-westeu-01. Rule Collection Group: rcg-02. Rule Collection: rc-02. Rule: rule-02"
+        }
+      },
+      {
+        "category": "AzureFirewallNetworkRule-ICMP-Test",
+        "time": "2022-08-21T06:38:02.2825790Z",
+        "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
+        "operationName": "AzureFirewallNetworkRuleLog",
+        "properties": {
+          "msg": "ICMP Type=8 request from 10.28.214.217 to 10.341.118.2. Action: Allow. Policy: fwp-premium-test-westeu-01. Rule Collection Group: rcg-03. Rule Collection: rc-03. Rule: allow-ICMP"
+        }
+      },
+      {
+        "category": "AzureFirewallApplicationRule-Deny-NoMatch-Test",
+        "time": "2022-08-18T19:05:06.0206920Z",
+        "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
+        "operationName": "AzureFirewallApplicationRuleLog",
+        "properties": {
+          "msg": "HTTPS request from 10.218.32.8:32282 to myprod.com:443. Action: Deny. No rule matched. Proceeding with default action"
+        }
+      },
+      {
+        "category": "AzureFirewallApplicationRule-Deny-Explicit-Test",
+        "time": "2022-08-18T19:05:16.6127010Z",
+        "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
+        "operationName": "AzureFirewallApplicationRuleLog",
+        "properties": {
+          "msg": "HTTP  request from 10.157.48.39:49747. Action: Deny. Reason: Host header port 443 mismatch with network port 80"
+        }
+      },
+      {
+        "category": "AzureFirewallApplicationRule-SQL-FQDN-Allow-Test",
+        "time": "2022-08-18T19:05:30.9562310Z",
+        "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
+        "operationName": "AzureFirewallApplicationRuleLog",
+        "properties": {
+          "msg": "MSSQL request from 10.127.47.190:54455 to my.database.windows.net:1433. Action: Allow. Policy: fwp-premium-test-westeu-01. Rule Collection Group: rcg-04. Rule Collection: rc-04. Rule: rule-04"
+        }
+      },
+      {
+        "category": "AzureFirewallApplicationRule-SQL-FQDN-Deny-Test",
+        "time": "2022-08-18T19:05:59.8417100Z",
+        "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
+        "operationName": "AzureFirewallApplicationRuleLog",
+        "properties": {
+          "msg": "MSSQL request from 10.177.9.86:5261 to host43:1433. Action: Deny. No rule matched. Proceeding with default action"
+        }
+      },
+      {
+        "category": "AzureFirewallDnsProxy-Test",
+        "time": "2022-08-25T09:39:09.0929040Z",
+        "resourceId": "/SUBSCRIPTIONS/XXX/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
+        "operationName": "AzureFirewallDnsProxyLog",
+        "properties": {
+          "msg": "DNS Request: 10.168.33.40:9536 - 8373 AAAA IN myprod.global.com. udp 56 false 512 NOERROR qr,aa,rd,ra 139 0.000148902s"
+        }
+      }
+    ],
+    "EventProcessedUtcTime": "2022-07-12T16:23:23.1086035Z",
+    "PartitionId": 3,
+    "EventEnqueuedUtcTime": "2022-07-12T16:23:18.9850000Z"
+  }
+]
