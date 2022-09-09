@@ -1,10 +1,3 @@
-//These KQL queries perform the following actions:
-// 1) Create a table for raw Azure firewall logs (rawFirewallLogs)
-// 2) Create an ingestion mapping
-// 3) Define a function, ExtractMyLogs(), which parses Azure firewall logs into columns
-// 4) Create a target table (networkFirewallLogs) with user-friendly columns for parsed logs
-// 5) Create an update policy which will apply ExtractMyLogs() to every new batch of logs landing in the raw table, and export the results in the target table (networkFirewallLogs)
-
 //This version works whether you have enabled or not Network rule name logging (preview as of August 2022) on your Azure Firewall (https://docs.microsoft.com/en-us/azure/firewall/firewall-preview#network-rule-name-logging-preview). Enabling this feature adds new items to the "msg" field of the logs, including policy name, rule collection group, rule collection and rule name.
 
 // Create table to receive raw logs from Event Hub
@@ -19,33 +12,46 @@
      ExtractMyLogs()
     {
 rawFirewallLogs
-// Parse the "msg" nested JSON item containing protocol, source/destination IP, port, action etc...
 | mv-expand records
+// Parse the "msg" nested JSON item containing protocol, source/destination IP and port and action
 // Match DNAT record
 | parse records.properties.msg with Protocol_1 ' request from ' SourceHost_1 ':' SourcePort_1 ' to ' DestinationHost_1 ':' DestinationPort_1 ' was DNAT\'ed to ' DNATDestination '. Policy: ' Policy_1 '. Rule Collection Group: ' RCG_1 '. Rule Collection: ' RuleCollection_1 '. Rule: ' Rule_1
 // Match logs if Network rule name logging was enabled on Firewall
 | parse records.properties.msg with Protocol_2 ' request from ' SourceHost_2 ':' SourcePort_2 ' to ' DestinationHost_2 ':' DestinationPort_2 '. Action: ' Action_2 '. Policy: ' Policy_2 '. Rule Collection Group: ' RCG_2 '. Rule Collection: ' RuleCollection_2 '. Rule: ' Rule_2
 // Match logs if Network rule name logging was not enabled on Firewall
-| parse records.properties.msg with Protocol_3 ' request from ' SourceHost_3 ':' SourcePort_3 ' to ' DestinationHost_3 ':' DestinationPort_3 '. Action:' Action_3 '. '
+| parse records.properties.msg with Protocol_3 ' request from ' SourceHost_3 ':' SourcePort_3 ' to ' DestinationHost_3 ':' DestinationPort_3 '. Action: ' Action_3 '.'
 // ICMP logs
 | parse records.properties.msg with Protocol_4 ' Type=8 request from ' SourceHost_4 ' to ' DestinationHost_4 '. Action: ' Action_4 '. Policy: ' Policy_4 '. Rule Collection Group: ' RCG_4 '. Rule Collection: ' RuleCollection_4 '. Rule: ' Rule_4
 //Deny due to no match logs
 | parse records.properties.msg with Protocol_5 ' request from ' SourceHost_5 ':' SourcePort_5 ' to ' DestinationHost_5 ':' DestinationPort_5 '. Action: ' Action_5 '. No rule matched. Proceeding with default action'
 //Explicit deny logs
 | parse records.properties.msg with Protocol_6 '  request from ' SourceHost_6 ':' SourcePort_6 '. Action: ' Action_6 '. Reason: ' DenyReason
-//DNS proxy logs
-| parse records.properties.msg with 'DNS Request: ' SourceHost_7 ':' SourcePort_7 ' - ' Unused_var ' ' DNSRequestType_7 ' IN ' HostName_7 '. ' msg_7
+//DNS proxy succesful request
+| parse records.properties.msg with 'DNS Request: ' SourceHost_7 ':' SourcePort_7 ' - ' Unused_var ' ' DNSRequestType_7 ' IN ' HostName_7 '. ' Protocol_7 ' ' msg_7
+//DNS proxy error
+| parse records.properties.msg with ' Error: ' Unused_var ' ' HostName_8 '. ' DNSRequestType_8 ': IN ' Protocol_8 ' ' SourceHost_8 ':' SourcePort_8 '->' DestinationHost_8 ':' DestinationPort_8 ': ' msg_8
+//ICMP logs without rule name logging enabled
+| parse records.properties.msg with Protocol_9 ' Type=8 request from ' SourceHost_9 ' to ' DestinationHost_9 '. Action: ' Action_9 '.'
+//Loose matching of ThreatIntel logs, keeping some unparsed information in the "msg" field
+| parse records.properties.msg with Protocol_10 ' request from ' SourceHost_10 ':' SourcePort_10 ' to ' DestinationHost_10 ':' DestinationPort_10 '. Action: ' Action_10 '. ThreatIntel: ' msg_10
+//Loose matching of IDPS logs, keeping some unparsed information in the "msg" field
+| parse records.properties.msg with Protocol_11 ' request from ' SourceHost_11 ': to ' DestinationHost_11 ':. Action: ' Action_11 '. ' msg_11
+//Match TCP logs if rule name logging was not enabled; this is NOT a duplicate of rule 3 as there is a whitespace at the end of some logs, which this rule is matching and not rule 3
+| parse records.properties.msg with Protocol_12 ' request from ' SourceHost_12 ':' SourcePort_12 ' to ' DestinationHost_12 ':' DestinationPort_12 '. Action: ' Action_12 '. '
 | extend
-    Protocol = strcat(Protocol_1, Protocol_2, Protocol_3, Protocol_4, Protocol_5, Protocol_6),
-    SourceHost = strcat(SourceHost_1, SourceHost_2, SourceHost_3, SourceHost_4, SourceHost_5, SourceHost_6, SourceHost_7),
-    SourcePort = strcat(SourcePort_1, SourcePort_2, SourcePort_3, SourcePort_5, SourcePort_6, SourcePort_7),
-    DestinationHost = strcat(DestinationHost_1, DestinationHost_2, DestinationHost_3, DestinationHost_4, DestinationHost_5),
-    DestinationPort = strcat(DestinationPort_1, DestinationPort_2, DestinationPort_3, DestinationPort_5),
-    Action = strcat(Action_2, Action_3, Action_4, Action_5, Action_6),
+    Protocol = toupper(strcat(Protocol_1, Protocol_2, Protocol_3, Protocol_4, Protocol_5, Protocol_6, Protocol_7, Protocol_8, Protocol_9, Protocol_10, Protocol_11, Protocol_12)),
+    SourceHost = strcat(SourceHost_1, SourceHost_2, SourceHost_3, SourceHost_4, SourceHost_5, SourceHost_6, SourceHost_7, SourceHost_8, SourceHost_9, SourceHost_10, SourceHost_11, SourceHost_12),
+    SourcePort = strcat(SourcePort_1, SourcePort_2, SourcePort_3, SourcePort_5, SourcePort_6, SourcePort_7, SourcePort_8, SourcePort_10, SourcePort_12),
+    DestinationHost = strcat(DestinationHost_1, DestinationHost_2, DestinationHost_3, DestinationHost_4, DestinationHost_5, DestinationHost_8, DestinationHost_9, DestinationHost_10, DestinationHost_11, DestinationHost_12),
+    DestinationPort = strcat(DestinationPort_1, DestinationPort_2, DestinationPort_3, DestinationPort_5, DestinationPort_8, DestinationPort_10, DestinationPort_12),
+    Action = strcat(Action_2, Action_3, Action_4, Action_5, Action_6, Action_9, Action_10, Action_11, Action_12),
     Policy = strcat(Policy_1, Policy_2, Policy_4),
     RCG = strcat(RCG_1, RCG_2, RCG_4),
     RuleCollection = strcat(RuleCollection_1, RuleCollection_2, RuleCollection_4),
-    Rule = strcat(Rule_1, Rule_2, Rule_4)
+    Rule = strcat(Rule_1, Rule_2, Rule_4),
+    HostName = strcat(HostName_7, HostName_8),
+    DNSRequestType = strcat(DNSRequestType_7, DNSRequestType_8),
+    msg = strcat(msg_7, msg_8, msg_10, msg_11)
 | project
     //Assign types to each item (string or int)
     todatetime(records.['time']),
@@ -64,9 +70,9 @@ rawFirewallLogs
     tostring(RuleCollection),
     tostring(Rule),
     tostring(DenyReason),
-    tostring(DNSRequestType_7),
-    tostring(HostName_7),
-    tostring(msg_7)
+    tostring(DNSRequestType),
+    tostring(HostName),
+    tostring(msg)
 }
 
 // Create target table
@@ -91,6 +97,7 @@ rawFirewallLogs
     HostName:string,
     Message:string
     )
+
 
 // Adding update policy on the target table
 .alter table networkFirewallLogs policy update

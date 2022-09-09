@@ -92,7 +92,7 @@
         }
       },
       {
-        "category": "AzureFirewallNetworkRule-Test",
+        "category": "AzureFirewallNetworkRule-ICMP-Test",
         "time": "2022-07-14T14:06:25.3840780Z",
         "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
         "operationName": "AzureFirewallNetworkRuleLog",
@@ -101,7 +101,7 @@
         }
       },
       {
-        "category": "AzureFirewallNetworkRule-Test",
+        "category": "AzureFirewallNetworkRule-TCP-Test",
         "time": "2022-07-14T14:06:25.3840780Z",
         "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
         "operationName": "AzureFirewallNetworkRuleLog",
@@ -110,7 +110,7 @@
         }
       },
       {
-        "category": "AzureFirewallNetworkRule-Test",
+        "category": "AzureFirewallNetworkRule-ThreatIntel-HTTP-Test",
         "time": "2022-07-14T14:06:25.3840780Z",
         "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
         "operationName": "AzureFirewallNetworkRuleLog",
@@ -119,7 +119,7 @@
         }
       },
       {
-        "category": "AzureFirewallNetworkRule-Test",
+        "category": "AzureFirewallNetworkRule-ThreatIntel-HTTPS-Test",
         "time": "2022-07-14T14:06:25.3840780Z",
         "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
         "operationName": "AzureFirewallNetworkRuleLog",
@@ -128,55 +128,10 @@
         }
       },
       {
-        "category": "AzureFirewallNetworkRule-Test",
+        "category": "AzureFirewallNetworkRule-ICMP-IDS-Test",
         "time": "2022-07-14T14:06:25.3840780Z",
         "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
         "operationName": "AzureFirewallNetworkRuleLog",
-        "properties": {
-          "msg": "ICMP request from 10.0.0.1: to 10.0.0.2:. Action: alert. Signature: 2100366. IDS: ICMP_INFO PING *NIX. Priority: 3. Classification: Misc activity"
-        }
-      },
-      {
-        "category": "AzureFirewallApplicationRule-Test",
-        "time": "2022-08-18T19:05:59.8417100Z",
-        "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
-        "operationName": "AzureFirewallApplicationRuleLog",
-        "properties": {
-          "msg": "ICMP Type=8 request from 10.0.0.1 to 10.0.0.2. Action: Allow."
-        }
-      },
-      {
-        "category": "AzureFirewallApplicationRule-Test",
-        "time": "2022-08-18T19:05:59.8417100Z",
-        "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
-        "operationName": "AzureFirewallApplicationRuleLog",
-        "properties": {
-          "msg": "TCP request from 10.0.0.1:56088 to 10.0.0.2:443. Action: Allow."
-        }
-      },
-      {
-        "category": "AzureFirewallApplicationRule-Test",
-        "time": "2022-08-18T19:05:59.8417100Z",
-        "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
-        "operationName": "AzureFirewallApplicationRuleLog",
-        "properties": {
-          "msg": "HTTP  request from 10.0.0.1:62504 to ocsp.sca1b.amazontrust.com:80. Url: ocsp.sca1b.amazontrust.com/MFE=. Action: Deny. ThreatIntel: Bot Networks"
-        }
-      },
-      {
-        "category": "AzureFirewallApplicationRule-Test",
-        "time": "2022-08-18T19:05:59.8417100Z",
-        "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
-        "operationName": "AzureFirewallApplicationRuleLog",
-        "properties": {
-          "msg": "HTTPS request from 10.0.0.1:53415 to tags.bluekai.com:443. Action: Deny. ThreatIntel: Phishing Url"
-        }
-      },
-      {
-        "category": "AzureFirewallApplicationRule-Test",
-        "time": "2022-08-18T19:05:59.8417100Z",
-        "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-NETWORK-TEST/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-TEST-WESTEU-01",
-        "operationName": "AzureFirewallApplicationRuleLog",
         "properties": {
           "msg": "ICMP request from 10.0.0.1: to 10.0.0.2:. Action: alert. Signature: 2100366. IDS: ICMP_INFO PING *NIX. Priority: 3. Classification: Misc activity"
         }
