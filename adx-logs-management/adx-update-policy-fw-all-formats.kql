@@ -38,6 +38,8 @@ rawFirewallLogs
 | parse records.properties.msg with Protocol_11 ' request from ' SourceHost_11 ': to ' DestinationHost_11 ':. Action: ' Action_11 '. ' msg_11
 //Match TCP logs if rule name logging was not enabled; this is NOT a duplicate of rule 3 as there is a whitespace at the end of some logs, which this rule is matching and not rule 3
 | parse records.properties.msg with Protocol_12 ' request from ' SourceHost_12 ':' SourcePort_12 ' to ' DestinationHost_12 ':' DestinationPort_12 '. Action: ' Action_12 '. '
+//Match messages that were not matched by previous rules; this ensures no logs are dropped by the update policy
+| parse records.properties.msg with buffer
 | extend
     Protocol = toupper(strcat(Protocol_1, Protocol_2, Protocol_3, Protocol_4, Protocol_5, Protocol_6, Protocol_7, Protocol_8, Protocol_9, Protocol_10, Protocol_11, Protocol_12)),
     SourceHost = strcat(SourceHost_1, SourceHost_2, SourceHost_3, SourceHost_4, SourceHost_5, SourceHost_6, SourceHost_7, SourceHost_8, SourceHost_9, SourceHost_10, SourceHost_11, SourceHost_12),
@@ -72,7 +74,8 @@ rawFirewallLogs
     tostring(DenyReason),
     tostring(DNSRequestType),
     tostring(HostName),
-    tostring(msg)
+    tostring(msg),
+    tostring(buffer)
 }
 
 // Create target table
@@ -95,7 +98,8 @@ rawFirewallLogs
     DenyReason:string,
     DNSRequestType:string,
     HostName:string,
-    Message:string
+    Message:string,
+    Buffer:string
     )
 
 
