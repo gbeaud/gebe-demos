@@ -1,0 +1,55 @@
+//This version is designed for Firewalls with the "Structured logs" feature enabled: https://docs.microsoft.com/en-us/azure/firewall/firewall-preview#structured-firewall-logs-preview
+
+// Create table to receive raw logs from Event Hub
+.create table ['rawFirewallLogs']  (['records']:dynamic, ['EventProcessedUtcTime']:datetime, ['PartitionId']:int, ['EventEnqueuedUtcTime']:datetime)
+
+// Create mapping command
+.create table ['rawFirewallLogs'] ingestion json mapping 'rawFirewallLogs_mapping' '[{"column":"records", "Properties":{"Path":"$[\'records\']"}},{"column":"EventProcessedUtcTime", "Properties":{"Path":"$[\'EventProcessedUtcTime\']"}},{"column":"PartitionId", "Properties":{"Path":"$[\'PartitionId\']"}},{"column":"EventEnqueuedUtcTime", "Properties":{"Path":"$[\'EventEnqueuedUtcTime\']"}}]'
+
+// Network rule logs (AZFWNetworkRule)
+// Create function that will be used in the update policy
+.create-or-alter function
+ with (docstring = 'Parses raw records into strongly-typed columns', folder = 'UpdatePolicyFunctions')
+     ExtractLogs_AZFWNetworkRule()
+    {
+rawFirewallLogs
+| mv-expand records
+| where records.category == "AZFWNetworkRule"
+| project 
+    tostring(records.category),
+    todatetime(records.['time']),
+    tostring(records.resourceId),
+    tostring(records.properties.Protocol),
+    tostring(records.properties.SourceIp),
+    toint(records.properties.SourcePort),
+    tostring(records.properties.DestinationIp),
+    toint(records.properties.DestinationPort),
+    tostring(records.properties.Action),
+    tostring(records.properties.Policy),
+    tostring(records.properties.RuleCollectionGroup),
+    tostring(records.properties.RuleCollection),
+    tostring(records.properties.Rule),
+    tostring(records.properties.ActionReason)
+}
+
+// Create target table for network rule logs
+.create table AZFWNetworkRule (
+    Category:string,
+    Timestamp:datetime,
+    ResourceID:string,
+    Protocol:string,
+    SourceIP:string,
+    SourcePort:int,
+    DestinationIP:string,
+    DestinationPort:int,
+    Action:string,
+    Policy:string,
+    RuleCollectionGroup:string,
+    RuleCollection:string,
+    Rule:string,
+    ActionReason:string
+    )
+
+// Update policy for AZFWNetworkRule table
+.alter table AZFWNetworkRule policy update
+@'[{ "IsEnabled": true, "Source": "rawFirewallLogs", "Query": "ExtractLogs_AZFWNetworkRule()", "IsTransactional": false, "PropagateIngestionProperties": false}]'

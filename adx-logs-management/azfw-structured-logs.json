@@ -1,0 +1,27 @@
+[
+  {
+    "records": [
+      {
+        "category": "AZFWNetworkRule",
+        "time": "2022-09-13T05:38:49.3755590Z",
+        "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-HUB-CONNECTIVITY-PROD-WESTEU/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-PROD-WESTEU",
+        "properties": {
+          "Protocol": "TCP",
+          "SourceIp": "10.11.0.4",
+          "SourcePort": 49657,
+          "DestinationIp": "23.73.0.135",
+          "DestinationPort": 443,
+          "Action": "Allow",
+          "Policy": "fp-firewall-policy-hub-prod-westeu-01",
+          "RuleCollectionGroup": "DefaultNetworkRuleCollectionGroup",
+          "RuleCollection": "rc-test-01",
+          "Rule": "Enable test vnet-to-vnet",
+          "ActionReason": ""
+        }
+      }
+    ],
+    "EventProcessedUtcTime": "2022-09-12T16:23:23.1086035Z",
+    "PartitionId": 3,
+    "EventEnqueuedUtcTime": "2022-09-12T16:23:18.9850000Z"
+  }
+]
