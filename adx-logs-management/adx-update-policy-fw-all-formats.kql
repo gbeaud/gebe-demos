@@ -14,6 +14,8 @@
     {
 rawFirewallLogs
 | mv-expand records
+// Excluding structured logs
+| where records.category in ("AzureFirewallApplicationRule", "AzureFirewallNetworkRule", "AzureFirewallDnsProxy")
 // Parse the "msg" nested JSON item containing protocol, source/destination IP and port and action
 // Match DNAT record
 | parse records.properties.msg with Protocol_1 ' request from ' SourceHost_1 ':' SourcePort_1 ' to ' DestinationHost_1 ':' DestinationPort_1 ' was DNAT\'ed to ' DNATDestination '. Policy: ' Policy_1 '. Rule Collection Group: ' RCG_1 '. Rule Collection: ' RuleCollection_1 '. Rule: ' Rule_1

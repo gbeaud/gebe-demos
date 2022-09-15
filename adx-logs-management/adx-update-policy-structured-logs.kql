@@ -14,7 +14,9 @@
     {
 rawFirewallLogs
 | mv-expand records
-| project 
+// Excluding legacy logs
+| where records.category !in ("AzureFirewallApplicationRule", "AzureFirewallNetworkRule", "AzureFirewallDnsProxy")
+| project
     // AZFWNetworkRule
     tostring(records.category),
     todatetime(records.['time']),
