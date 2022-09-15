@@ -3,7 +3,7 @@
     "records": [
       {
         "category": "AZFWNetworkRule",
-        "time": "2022-09-13T05:38:49.3755590Z",
+        "time": "2022-09-15T05:38:49.3755590Z",
         "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-HUB-CONNECTIVITY-PROD-WESTEU/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-PROD-WESTEU",
         "properties": {
           "Protocol": "TCP",
@@ -15,8 +15,70 @@
           "Policy": "fp-firewall-policy-hub-prod-westeu-01",
           "RuleCollectionGroup": "DefaultNetworkRuleCollectionGroup",
           "RuleCollection": "rc-test-01",
-          "Rule": "Enable test vnet-to-vnet",
+          "Rule": "rule-test-01",
           "ActionReason": ""
+        }
+      },
+      {
+        "category": "AZFWNatRule",
+        "time": "2022-09-15T06:16:07.6177500Z",
+        "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-HUB-CONNECTIVITY-PROD-WESTEU/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-PROD-WESTEU",
+        "properties": {
+          "Protocol": "TCP",
+          "SourceIp": "107.41.216.239",
+          "SourcePort": 46738,
+          "DestinationIp": "21.105.78.139",
+          "DestinationPort": 443,
+          "Policy": "fp-firewall-policy-hub-prod-westeu-01",
+          "RuleCollectionGroup": "DefaultDnatRuleCollectionGroup",
+          "RuleCollection": "rc-test-01",
+          "Rule": "rule-test-01",
+          "TranslatedIp": "10.48.28.151",
+          "TranslatedPort": 443
+        }
+      },
+      {
+        "category": "AZFWApplicationRule",
+        "time": "2022-09-15T06:16:00.2899290Z",
+        "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-HUB-CONNECTIVITY-PROD-WESTEU/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-PROD-WESTEU",
+        "properties": {
+          "Protocol": "HTTPS",
+          "SourceIp": "10.47.50.158",
+          "SourcePort": 49516,
+          "DestinationPort": 443,
+          "Action": "Deny",
+          "Policy": "",
+          "RuleCollectionGroup": "",
+          "RuleCollection": "",
+          "Rule": "",
+          "ActionReason": "No rule matched. Proceeding with default action",
+          "Fqdn": "hello.com",
+          "TargetUrl": "helloTarget.com",
+          "IsTlsInspected": false,
+          "WebCategory": "thisCategory"
+        }
+      },
+      {
+        "category": "AZFWDnsQuery",
+        "time": "2022-09-15T06:16:14.0115680Z",
+        "resourceId": "/SUBSCRIPTIONS/XXX/RESOURCEGROUPS/RG-HUB-CONNECTIVITY-PROD-WESTEU/PROVIDERS/MICROSOFT.NETWORK/AZUREFIREWALLS/FW-PROD-WESTEU",
+        "properties": {
+          "Protocol": "udp",
+          "SourceIp": "10.48.43.32",
+          "SourcePort": 85521,
+          "QueryId": 6319,
+          "QueryType": "A",
+          "QueryClass": "IN",
+          "QueryName": "myDomain.com.",
+          "RequestSize": 47,
+          "DnssecOkBit": false,
+          "EDNS0BufferSize": 512,
+          "ResponseCode": "NOERROR",
+          "ResponseFlags": "qr,aa,rd,ra",
+          "ResponseSize": 92,
+          "RequestDurationSecs": 0.000131102,
+          "ErrorNumber": 0,
+          "ErrorMessage": ""
         }
       }
     ],
