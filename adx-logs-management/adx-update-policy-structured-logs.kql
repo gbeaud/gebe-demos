@@ -1,5 +1,4 @@
 // Produces one single table for all structured logs
-
 // This version is designed for Firewalls with the "Structured logs" feature enable: https://docs.microsoft.com/en-us/azure/firewall/firewall-preview#structured-firewall-logs-preview
 
 // Create table to receive raw logs from Event Hub
@@ -7,8 +6,6 @@
 
 // Create mapping command
 .create table ['rawFirewallLogs'] ingestion json mapping 'rawFirewallLogs_mapping' '[{"column":"records", "Properties":{"Path":"$[\'records\']"}},{"column":"EventProcessedUtcTime", "Properties":{"Path":"$[\'EventProcessedUtcTime\']"}},{"column":"PartitionId", "Properties":{"Path":"$[\'PartitionId\']"}},{"column":"EventEnqueuedUtcTime", "Properties":{"Path":"$[\'EventEnqueuedUtcTime\']"}}]'
-
-// ################ Network rule logs (AZFWNetworkRule)
 
 // Create function that will be used in the update policy
 .create-or-alter function
@@ -121,5 +118,6 @@ rawFirewallLogs
     )
 
 // Update policy
+// Every time new data lands in the "rawFirewallLogs" table, the function "ExtractLogs_Structured()" is called and imports data into the target table, "firewallLogs_structured"
 .alter table firewallLogs_structured policy update
 @'[{ "IsEnabled": true, "Source": "rawFirewallLogs", "Query": "ExtractLogs_Structured()", "IsTransactional": false, "PropagateIngestionProperties": false}]'
