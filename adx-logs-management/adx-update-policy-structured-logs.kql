@@ -120,6 +120,6 @@ rawFirewallLogs
     Severity:int
     )
 
-// Update policy for AZFWNetworkRule table
+// Update policy
 .alter table firewallLogs_structured policy update
 @'[{ "IsEnabled": true, "Source": "rawFirewallLogs", "Query": "ExtractLogs_Structured()", "IsTransactional": false, "PropagateIngestionProperties": false}]'
