@@ -1,19 +1,24 @@
 <#
     .DESCRIPTION
         Export all resource groups in scope as template specs stored in the related resource group.
+        Removes versions older than the set retention period
         Usual limitations of ARM apply (e.g. it will not export Log Analytics workspaces due to OperationalInsights objects not being exportable, etc...)
+    .PARAMETER scopesHashtable
+        Hashtable list of subscriptions and resource groups which the script should be applied to
+        Pattern is: @("<subscriptionID>","<resourceGroupName1>","<resourceGroupName2>, ...")
+    .PARAMETER retentionDays
+        Retention period in days for template spec versions
     .NOTES
         AUTHOR: Guillaume Beaud (Microsoft Cloud Solution Architect)
-        LASTEDIT: August 25th, 2022
+        LASTEDIT: November 8th, 2022
 #>
 
-# List of subscriptions and resource groups to which the script should be applied to
-# Pattern is: @("<subscriptionID>","<resourceGroupName1>","<resourceGroupName2>, ...")
-# Make sure to use at least 2 different subscriptions when testing / using
-$scopes = @(
-    @("<subscriptionID1>","<resourceGroupName1>","<resourceGroupName2>"),
-    @("<subscriptionID2>","<resourceGroupName3>","<resourceGroupName4>","<resourceGroupName5>")
-)
+
+$scopesHashtable = @{
+    '<subscriptionID1>' = @('<resourceGroupName1>', '<resourceGroupName2>')
+    '<subscriptionID2>' = @('<resourceGroupName3>', '<resourceGroupName4>', '<resourceGroupName5>')
+}
+$retentionDays = 365
 
 function Export-ResourceGroup(
     [string]$subscriptionID, 
@@ -53,9 +58,33 @@ function Export-ResourceGroup(
             -Location (Get-AzResourceGroup -Name $resourceGroupName).Location `
             -TemplateFile $backupFilePath `
             -Force
+    
+        # Calling function to remove old versions of template specs
+        Remove-OldTemplates -resourceGroupName $resourceGroupName -templateSpecName $templateSpecName -retentionDays $retentionDays
     }
     else {
         Write-Output "Resource group $resourceGroupName has no resources to export."
+    }
+}
+
+function Remove-OldTemplates {
+    <#
+    .SYNOPSIS
+        Deletes all versions of the template spec older than the given retention period in days
+    #>
+    param (
+        [string]$resourceGroupName,
+        [string]$templateSpecName,
+        [int]$retentionDays
+    )
+ 
+    $templateSpec = Get-AzTemplateSpec -ResourceGroupName $resourceGroupName -Name $templateSpecName
+
+    foreach ($version in $templateSpec.Versions) {
+        if ($version.CreationTime.AddDays($retentionDays) -lt (Get-Date)) {
+            Write-Host 'Deleting template spec version:' $version.Name
+            Remove-AzTemplateSpec -Force -ResourceGroupName $resourceGroupName -Name $templateSpec.Name -Version $version.Name
+        } 
     }
 }
 
@@ -64,21 +93,19 @@ function Export-AllSubscriptions() {
     .SYNOPSIS
         Iterate over all available subscriptions and all resource groups to call Export-ResourceGroup
     #>
-    foreach ($scope in $scopes) {
-        Select-AzSubscription -SubscriptionId $scope[0]
-        for($i=1; $i -lt $scope.Length; $i++) {
-        Export-ResourceGroup `
-                -resourceGroupName $scope[$i]  `
-                -SubscriptionId $scope[0]
+    foreach ($scope in $scopesHashtable.GetEnumerator()) {
+        foreach ($resourceGroup in $scope.Value) {
+            Export-ResourceGroup `
+                -resourceGroupName $resourceGroup  `
+                -SubscriptionId $scope.Name
         }
     }
 }
 
 
 # If using an Automation account, connect using a Managed Service Identity. Otherwise remove this block.
-try
-{
-    "Logging in to Azure..."
+try {
+    'Logging in to Azure...'
     Connect-AzAccount -Identity
 }
 catch {
