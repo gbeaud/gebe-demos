@@ -6,6 +6,7 @@
         The script looks for firewall-related resource types and can cover all resource groups in the entire tenant, or a defined set of resource groups 
         The script removes template specs versions older than the set retention period
         This script is intended to be run in an automation account as a scheduled job (e.g. running every day), but can also be run locally
+        Known issue: when deploying the template spec, an error of type "Put on Firewall Policy <policy-name> Failed with 1 faulted referenced firewalls" may be raised due to interdependencies between the firewall and the policy. However, the resources should still be deployed correctly. If not, 2 troubleshooting options exist: 1) redeploy the template 2) manually attach the policy to the firewall if needed
     .PARAMETER scopes
         Defines the scope over which the script will run; either 1) on the entire tenant, or 2) on selected resource groups
         Option 1: entire tenant => $scopes = $null
