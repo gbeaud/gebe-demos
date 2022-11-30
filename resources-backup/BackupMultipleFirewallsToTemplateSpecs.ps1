@@ -13,24 +13,26 @@
         Option 2: on selected resource groups =>
             Pattern is: @("<subscriptionID>","<resourceGroupName1>","<resourceGroupName2>, ...")
             Example:
-            $scopes = @{
-                'bh6zu7l9-49e2-47f4-8059-87377ebce92b' = @('rg-sandbox-test-westeu-01', 'rg-network-test-westeu-01')
-                'er23fg57-6ce0-4fe8-81a6-97d7ef0d9d38' = @('rg-hub-connectivity-prod-westeu-01')
-            }
+                $scopes = @{
+                    '<subId1>' = @('rg-01', 'rg-02')
+                    '<subId2>' = @('rg-03')
+                }
     .PARAMETER retentionDays
         Retention period in days for template spec versions; all versions older than the retention period will be deleted at next run
     .NOTES
         AUTHOR: Guillaume Beaud (Microsoft Cloud Solution Architect)
-        LASTEDIT: November 15th, 2022
+        LASTEDIT: November 30th, 2022
 #>
 
 # To cover specific subscriptions / resource groups
 $scopes = @{
-    'bh6zu7l9-49e2-47f4-8059-87377ebce92b' = @('rg-sandbox-test-westeu-01', 'rg-network-test-westeu-01')
-    'er23fg57-6ce0-4fe8-81a6-97d7ef0d9d38' = @('rg-hub-connectivity-prod-westeu-01')
+    '<subId1>' = @('rg-01', 'rg-02')
+    '<subId2>' = @('rg-03')
 }
+
 # To cover the entire tenant
 # $scopes = $null
+
 $retentionDays = 365
 
 function Backup-Firewall {
