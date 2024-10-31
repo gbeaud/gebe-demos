@@ -3,7 +3,7 @@
         Export multiple resource groups as template specs (versioned ARM templates stored and easily deployable in Azure)
     .DESCRIPTION
         - This script is geared towards backup of Azure resources configuration
-        - Template specs are stored in the resource group they export
+        - Template specs are stored in the same resource group they extract
         - Removes versions older than the set retention period
         - Can be run on the entire tenant, entire subscriptions or selected resource groups
         - Usual limitations of ARM apply: "WARNING: ExportTemplateCompletedWithErrors" may be triggered because some resources cannot be exported as templates (e.g. Log Analytics workspaces etc...)
