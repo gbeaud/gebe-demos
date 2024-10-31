@@ -6,6 +6,7 @@
         - Template specs are stored in the same resource group they extract
         - Removes versions older than the set retention period
         - Can be run on the entire tenant, entire subscriptions or selected resource groups
+        - This script can be run ad hoc from a local machine or scheduled in an Azure Automation account (recommended) or in ADO/GitHub Actions
         - Usual limitations of ARM apply: "WARNING: ExportTemplateCompletedWithErrors" may be triggered because some resources cannot be exported as templates (e.g. Log Analytics workspaces etc...)
     .PARAMETER scopes
         Defines the scope over which the script will run; either 
