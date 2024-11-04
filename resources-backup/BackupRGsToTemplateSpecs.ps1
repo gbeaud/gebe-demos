@@ -25,7 +25,7 @@
         Retention period in days for template spec versions; all versions older than the retention period will be deleted during next run
     .NOTES
         AUTHOR: Guillaume Beaud (Microsoft Cloud Solution Architect)
-        LASTEDIT: November 17th, 2022
+        LASTEDIT: October 31st, 2024
 #>
 
 # To cover specific subscriptions / resource groups
